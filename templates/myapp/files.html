@@ -1,0 +1,67 @@
+{% extends 'base.html' %}  
+{% block content %}  
+{% if user.is_authenticated %}
+      <a class="btn btn-danger" href=" {% url "logout" %}" role="button">Logout</a>
+     {% endif %}    
+      
+      <a class="btn btn-success" href=" {% url "upload_file" %}" role="button">Upload file</a>
+      
+    <h2>Uploaded Files</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">File_ Title</th>
+          <th scope="col">File</th>
+          <th scope="col">Date</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      {% for files in files %}
+      <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{files.title}}</td>
+          <td>{{files.Upload_file}}<a href="{{MEDIA_URL}}/{{files.Upload_file.url}}" class="btn btn-info" target="_blank">View</a></td>
+          <td>{{files.uploaded_at}}</td>
+          <td>
+            <a href="/delete-file/{{files.id}}/" class = "btn btn-danger">Delete</a>
+          </td>
+         
+        </tr>
+      </tbody>
+      {% endfor %} 
+    </table>
+    <br>
+    <h2>Shared Files</h2>
+    
+    <br>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">File_Title</th>
+          <th scope="col">File</th>
+          <th scope="col">Shared At</th>
+          <th scope="col">Shared by</th>
+        </tr>
+      </thead>
+      {% for shared_file in shared_files %}
+      <tbody>
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{shared_file.title}}</td>
+          <td>{{shared_file.file}}</td>
+          <td>{{shared_file.shared_at}}</td>
+          <td>
+            {{shared_file.uploader}}
+          </td>
+         
+        </tr>
+      </tbody>
+      {% endfor %} 
+    </table>
+    
+{%endblock%}
+    
+    

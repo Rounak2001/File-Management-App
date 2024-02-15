@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %} 
+{% block content %}
+<h2>Search Users</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="input" class="form-control" placeholder="Search users" name="search">
+      <br>
+    <button type="submit" class="btn btn-secondary">Search</button>
+  </form>
+  <br>
+  {%if search%}
+  <h3> You Search for:{{search}}</h3>
+  {%endif%}
+
+  
+
+  <ul>
+      {% for user in searched %}
+      <li><h4>{{ user.username }}</h4></li>
+      
+        
+       {% endfor %}
+      
+  </ul>
+
+  <a class="btn btn-success" href=" {% url "upload_file" %}" role="button">Upload file</a>
+{% endblock content %}
